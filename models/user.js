@@ -21,6 +21,11 @@ const userSchema = new mongoose.Schema({
 
 },
 {
+    timestamps:true,
+
+    optimisticConcurrency:true
+},
+{
     collection:"login"
 });
 
