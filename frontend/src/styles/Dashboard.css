@@ -107,70 +107,75 @@
     gap: 20px;
 }
 
-.task-card {
+.tasks-table-container {
     background: white;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
 }
 
-.task-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+.tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
 }
 
-.task-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: 15px;
-}
-
-.task-header h3 {
-    margin: 0;
-    color: #333;
-    flex: 1;
-}
-
-.status-badge {
+.tasks-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
     font-weight: 600;
+}
+
+.tasks-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid #667eea;
+}
+
+.tasks-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+}
+
+.tasks-table tbody tr {
+    transition: background-color 0.2s;
+}
+
+.tasks-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.task-title {
+    font-weight: 600;
+    color: #333;
 }
 
 .task-description {
     color: #666;
-    margin: 10px 0;
-    font-size: 14px;
-    line-height: 1.5;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.task-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: #999;
-    margin: 15px 0;
-    padding-top: 10px;
-    border-top: 1px solid #eee;
+.status-badge {
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
 }
 
-.priority {
+.priority-badge {
     font-weight: 600;
 }
 
-.task-actions {
+.action-buttons {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.task-actions .btn {
-    flex: 1;
-    justify-content: center;
+    gap: 8px;
 }
 
 .no-tasks {

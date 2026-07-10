@@ -85,36 +85,58 @@ const Dashboard = () => {
                         <p>No tasks yet. <Link to="/create-task">Create one now!</Link></p>
                     </div>
                 ) : (
-                    <div className="tasks-grid">
-                        {tasks.map(task => (
-                            <div key={task._id} className="task-card">
-                                <div className="task-header">
-                                    <h3>{task.title}</h3>
-                                    <span 
-                                        className="status-badge"
-                                        style={{ backgroundColor: getStatusColor(task.status) }}
-                                    >
-                                        {task.status}
-                                    </span>
-                                </div>
-                                <p className="task-description">{task.description}</p>
-                                <div className="task-meta">
-                                    <span className="priority" style={{ color: task.priority === 'High' ? '#f44336' : task.priority === 'Medium' ? '#FF9800' : '#4CAF50' }}>
-                                        Priority: {task.priority}
-                                    </span>
-                                    <span>Assigned to: {task.assignedUser?.name}</span>
-                                </div>
-                                <div className="task-actions">
-                                    <Link to={`/edit-task/${task._id}`} className="btn btn-small btn-edit">Edit</Link>
-                                    <button 
-                                        onClick={() => handleDelete(task._id)} 
-                                        className="btn btn-small btn-delete"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                    <div className="tasks-table-container">
+                        <table className="tasks-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                    <th>Priority</th>
+                                    <th>Assigned To</th>
+                                    <th>Created Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {tasks.map(task => (
+                                    <tr key={task._id}>
+                                        <td className="task-title">{task.title}</td>
+                                        <td className="task-description">{task.description.substring(0, 50)}...</td>
+                                        <td>
+                                            <span 
+                                                className="status-badge"
+                                                style={{ backgroundColor: getStatusColor(task.status) }}
+                                            >
+                                                {task.status}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span 
+                                                className="priority-badge"
+                                                style={{ 
+                                                    color: task.priority === 'High' ? '#f44336' : task.priority === 'Medium' ? '#FF9800' : '#4CAF50',
+                                                    fontWeight: 'bold'
+                                                }}
+                                            >
+                                                {task.priority}
+                                            </span>
+                                        </td>
+                                        <td>{task.assignedUser?.name}</td>
+                                        <td>{new Date(task.createdDate).toLocaleDateString()}</td>
+                                        <td className="action-buttons">
+                                            <Link to={`/edit-task/${task._id}`} className="btn btn-small btn-edit">Edit</Link>
+                                            <button 
+                                                onClick={() => handleDelete(task._id)} 
+                                                className="btn btn-small btn-delete"
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )}
             </div>

@@ -8,6 +8,7 @@ const CreateTask = () => {
     const [formData, setFormData] = useState({
         title: '',
         description: '',
+        status: 'Pending',
         priority: 'Medium'
     });
     const [error, setError] = useState('');
@@ -69,6 +70,15 @@ const CreateTask = () => {
                             rows="5"
                             required
                         ></textarea>
+                    </div>
+
+                    <div className="form-group">
+                        <label>Status:</label>
+                        <select name="status" value={formData.status} onChange={handleChange}>
+                            <option value="Pending">Pending</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Completed">Completed</option>
+                        </select>
                     </div>
 
                     <div className="form-group">
