@@ -42,6 +42,21 @@ exports.register = async (req, res) => {
 
         });
 
+        // Generate JWT token
+        const token = jwt.sign(
+
+            {
+                id: newUser._id,
+                email: newUser.email
+            },
+
+            process.env.JWT_SECRET,
+
+            {
+                expiresIn: "1h"
+            }
+
+        );
 
         res.status(201).json({
 
@@ -49,11 +64,13 @@ exports.register = async (req, res) => {
 
             user: {
 
-                id: newUser._id,
+                _id: newUser._id,
                 name: newUser.name,
                 email: newUser.email
 
-            }
+            },
+
+            token: token
 
         });
 
@@ -135,6 +152,12 @@ exports.login = async (req, res) => {
         res.json({
 
             message: "Login Successful",
+
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email
+            },
 
             token: token
 
