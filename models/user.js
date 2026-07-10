@@ -17,6 +17,12 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+
+    taskstatus:{
+        type:String,
+        enum:["Pending", "UnderProcess", "Completed"],
+        default:"Pending"
     }
 
 },

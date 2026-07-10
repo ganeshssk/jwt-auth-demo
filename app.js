@@ -2,6 +2,11 @@ require("dotenv").config();
 
 const express=require("express");
 
+const connectDB = require("./config/db");
+
+// Connect MongoDB
+connectDB();
+
 const app=express();
 
 app.use(express.json());
@@ -13,6 +18,10 @@ require("./routes/authRoutes"));
 app.use("/api/employees",
 
 require("./routes/employeeRoutes"));
+
+app.use("/api/tasks",
+
+require("./routes/taskRoutes"));
 
 app.listen(process.env.PORT,()=>{
 
