@@ -8,6 +8,7 @@ const Dashboard = () => {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('All');
     const navigate = useNavigate();
     const { user, logout, token } = useContext(AuthContext);
 
@@ -58,6 +59,20 @@ const Dashboard = () => {
         }
     };
 
+    // Count tasks by status
+    const getTaskCount = (status) => {
+        if (status === 'All') return tasks.length;
+        return tasks.filter(task => task.status === status).length;
+    };
+
+    // Filter tasks by status
+    const getFilteredTasks = () => {
+        if (selectedStatus === 'All') return tasks;
+        return tasks.filter(task => task.status === selectedStatus);
+    };
+
+    const filteredTasks = getFilteredTasks();
+
     return (
         <div className="dashboard-container">
             <nav className="navbar">
@@ -76,11 +91,41 @@ const Dashboard = () => {
                     <Link to="/create-task" className="btn btn-primary">+ Create New Task</Link>
                 </div>
 
+                <div className="status-filters">
+                    <button 
+                        className={`filter-btn ${selectedStatus === 'All' ? 'active' : ''}`}
+                        onClick={() => setSelectedStatus('All')}
+                    >
+                        All Tasks ({getTaskCount('All')})
+                    </button>
+                    <button 
+                        className={`filter-btn ${selectedStatus === 'Pending' ? 'active' : ''}`}
+                        onClick={() => setSelectedStatus('Pending')}
+                        style={{ borderLeftColor: '#f44336' }}
+                    >
+                        Pending ({getTaskCount('Pending')})
+                    </button>
+                    <button 
+                        className={`filter-btn ${selectedStatus === 'In Progress' ? 'active' : ''}`}
+                        onClick={() => setSelectedStatus('In Progress')}
+                        style={{ borderLeftColor: '#FF9800' }}
+                    >
+                        In Progress ({getTaskCount('In Progress')})
+                    </button>
+                    <button 
+                        className={`filter-btn ${selectedStatus === 'Completed' ? 'active' : ''}`}
+                        onClick={() => setSelectedStatus('Completed')}
+                        style={{ borderLeftColor: '#4CAF50' }}
+                    >
+                        ✅ Completed ({getTaskCount('Completed')})
+                    </button>
+                </div>
+
                 {error && <div className="error-message">{error}</div>}
 
                 {loading ? (
                     <div className="loading">Loading tasks...</div>
-                ) : tasks.length === 0 ? (
+                ) : filteredTasks.length === 0 ? (
                     <div className="no-tasks">
                         <p>No tasks yet. <Link to="/create-task">Create one now!</Link></p>
                     </div>
@@ -99,7 +144,7 @@ const Dashboard = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tasks.map(task => (
+                                {filteredTasks.map(task => (
                                     <tr key={task._id}>
                                         <td className="task-title">{task.title}</td>
                                         <td className="task-description">{task.description.substring(0, 50)}...</td>

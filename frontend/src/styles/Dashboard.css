@@ -58,6 +58,38 @@
     margin: 0;
 }
 
+.status-filters {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 30px 0;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 10px 18px;
+    border: 2px solid #ddd;
+    border-left: 4px solid #999;
+    background: white;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    background: #f5f5f5;
+    border-color: #999;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
 .btn {
     padding: 10px 20px;
     border: none;
